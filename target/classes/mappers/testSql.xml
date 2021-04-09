@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.wooklee.project.mappers.TestMapper">
+
+	<resultMap type="com.wooklee.project.model.TestModel" id="TestMap">
+		<result property="id" column="ID"/>
+		<result property="str" column="STR"/>
+		<result property="integer" column="NUM"/>
+	</resultMap>
+	
+	<select id="selectTestList" resultMap="TestMap">
+		SELECT * FROM tb_test ORDER BY ID
+	</select>
+	
+	<select id="selectTestOne" parameterType="Long" resultMap="TestMap">
+		SELECT * FROM tb_test WHERE ID = #{id}
+	</select>
+	
+	<insert id="insertTestModel" parameterType="TestModel" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tb_test (STR, NUM) VALUES ( #{str}, #{integer} )
+	</insert>
+	
+	<update id="updateTestModel" parameterType="TestModel">
+		UPDATE tb_test SET
+			STR = #{str},
+			NUM = #{integer}
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteTestModel" parameterType="Long">
+		DELETE FROM tb_test
+		WHERE ID = #{id}
+	</delete>
+
+
+</mapper>
